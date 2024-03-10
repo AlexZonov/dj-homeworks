@@ -52,12 +52,12 @@ def format_num_comments(value):
 @register.filter
 def format_selftext(value, count):
     stub_body = " ... "
-    pattern = r"([\w!@#$%^&*()']+)"
+    pattern = r"[\s]+"
     matches = list(re.finditer(pattern, value, re.M))
 
     if len(matches) < (count * 2) + len(stub_body):
         return value
     else:
-        start_part = value[0:matches[count].regs[0][1]]
-        end_part = value[matches[-count].regs[0][0]:]
+        start_part = value[:matches[count].regs[0][0]]
+        end_part = value[matches[-count].regs[0][1]:]
         return f'{start_part}{stub_body}{end_part}'
