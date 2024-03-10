@@ -1,19 +1,20 @@
+import django.urls
 from django.shortcuts import render
 
 
 def home_view(request):
     template_name = 'app/home.html'
-    return render(request, template_name)
+    return render(request, template_name, context={'page': 'home'})
 
 
 def about_view(request):
     template_name = 'app/about.html'
-    return render(request, template_name)
+    return render(request, template_name, context={'page': 'about'})
 
 
 def contacts_view(request):
     template_name = 'app/contacts.html'
-    return render(request, template_name)
+    return render(request, template_name, context={'page': 'contacts'})
 
 
 def examples_view(request):
@@ -33,7 +34,8 @@ def examples_view(request):
         'img': 'imac.jpg'
     }]
     context = {
-        'items': items
+        'items': items,
+        'page': 'examples'
     }
     return render(request, template_name,
                   context)
