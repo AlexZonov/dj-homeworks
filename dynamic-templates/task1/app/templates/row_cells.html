@@ -1,0 +1,10 @@
+              {% load color %}
+              {% for cell in row %}
+                {% if forloop.counter0 == 0 or index == 0 %}
+                  <th>{{ cell|value }}</th>
+                {% elif cell == row|last %}
+                  <td class="grey darken-1">{{ cell|value }}</td>
+                {% else %}
+                  <td class="{{ cell|color_id }}">{{ cell|value }}</td>
+                {% endif %}
+              {% endfor %}
