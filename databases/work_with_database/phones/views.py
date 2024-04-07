@@ -2,11 +2,28 @@ from django.shortcuts import render
 
 from phones.models import Phone
 
+SORTS = {
+    '-price': 'Greater price',
+    'price': 'Lower price',
+    '-release_date': 'Release date',
+}
+
+def validate_sort(value):
+    if value == '' or value not in SORTS:
+        return next(iter(SORTS))
+    return value
 
 def show_catalog(request):
     template = 'catalog.html'
-    phones = Phone.objects.all()
-    context = {'phones':phones}
+
+    sort_current = validate_sort(request.GET.get('order_by'))
+    sort = {
+        'data': SORTS,
+        'current': sort_current,
+    }
+
+    phones = Phone.objects.all().order_by(sort_current)
+    context = {'phones': phones, 'sort': sort}
     return render(request, template, context)
 
 

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load dict %}
 
 {% block title %}Каталог{% endblock %}
 {% block content %}
@@ -11,12 +12,12 @@
         <div class="sort-block d-inline-flex mb-1">
             <div class="dropdown">
               <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Lower price
+                {{ sort.data|get_value:sort.current }}
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Greater price</a></li>
-                <li><a class="dropdown-item" href="#">Lower price</a></li>
-                <li><a class="dropdown-item" href="#">Release date</a></li>
+                {% for sort_key, sort_value in sort.data.items %}
+                  <li><a class="dropdown-item" href="{% url 'catalog'%}?order_by={{ sort_key }}">{{ sort_value }}</a></li>
+                {% endfor %}
               </ul>
             </div>
         </div>
