@@ -15,11 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include, path
 
 import phones.views
+import students.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', phones.views.show_catalog, name='catalog'),
     path('catalog/<slug:slug>/', phones.views.show_product),
+    path("__debug__/", include("debug_toolbar.urls")),
+    path("courses/", students.views.list_curses, name='courses-list'),
 ]
